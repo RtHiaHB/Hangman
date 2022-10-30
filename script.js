@@ -12,8 +12,13 @@ async function setup() {
 }
 
 async function main() {
-    await setup();
+    //setup the initial full word list
     
+    await setup();
+    //bust out the word list so I can refer to a word by 
+    //wordCollection[wordLength][index].  I may change how this
+    //works later to wordCollection being a function that returns
+    //an array of all of the words of a certain length
     for(let i = 0; i < 9; i++) {
         if(i < 4) {
             wordCollection.push([]);
@@ -25,7 +30,12 @@ async function main() {
             wordCollection.push(newWords);
         }
     }
-    wordCollection[4].forEach((word) => console.log(word))
+    //For testing purposes, I'm going to test with wordlength 6
+    //I plan a dropdown box where the user can select how long the
+    //word they want
+    const wordLength = 6;
+    const numberOfWords = wordCollection[wordLength].length;
+    
 }
 
 main()
