@@ -2,22 +2,30 @@
 // module.exports = words.words;
 // words.words.lengths = words.lengths;
 
-let words = [];
+let words;
+let wordCollection = [];
 
-async function main() {
-    words = await fetch("./node_modules/word-list-json/words.json");
+async function setup() {
+    words = await fetch("./words.json");
     words = await words.json();
-    console.log(words.lengths[3]);
-    console.log(words.lengths[4]);
-    console.log(words.lengths[5]);
-    console.log(words.words[words.lengths[3]])
-    for(let i = words.lengths[3]; i < words.lengths[4]-1; i++)
-    {
-        console.log(words.words[i])
-    }
-    // for(let i = (words.lengths[3] - 1); i < words.lengths[4]; i++) {
-    //     console.log(words.words[i]);
-    // }
+    
 }
 
-main();
+async function main() {
+    await setup();
+    
+    for(let i = 0; i < 9; i++) {
+        if(i < 4) {
+            wordCollection.push([]);
+        } else {
+            let newWords = [];
+            for(j = words.lengths[i-1] + 1;j < words.lengths[i]; j++) {
+                newWords.push(words.words[j]);
+            }
+            wordCollection.push(newWords);
+        }
+    }
+    wordCollection[4].forEach((word) => console.log(word))
+}
+
+main()
