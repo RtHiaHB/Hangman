@@ -2,7 +2,6 @@
 // module.exports = words.words;
 // words.words.lengths = words.lengths;
 
-let words;
 let wordCollection = [];
 
 let gameState = {
@@ -14,26 +13,11 @@ const workSpace = document.getElementById("workSpace");
 const startButton = document.getElementById("startButton");
 const lettersUsedPara = document.getElementById("lettersused");
 async function setup() {
-    words = await fetch("./words.json");
-    words = await words.json();
-
-    //bust out the word list so I can refer to a word by 
-    //wordCollection[wordLength][index].  I may change how this
-    //works later to wordCollection being a function that returns
-    //an array of all of the words of a certain length
-    for(let i = 0; i < 9; i++) {
-        if(i < 4) {
-            wordCollection.push([]);
-        } else {
-            let newWords = [];
-            for(j = words.lengths[i-1] + 1;j < words.lengths[i]; j++) {
-                newWords.push(words.words[j]);
-            }
-            wordCollection.push(newWords);
-        }
-    }
+    wordCollection = await fetch("./wordlist.json");
+    wordCollection = await wordCollection.json();
     startButton.addEventListener('click', (e) => startButton_click(e));
     document.body.addEventListener('keypress', (e) => body_keypress(e));
+    //words = null;
 }
 
 async function main() {
