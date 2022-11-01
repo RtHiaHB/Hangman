@@ -9,21 +9,36 @@ let gameState = {
     workingWord: "",
     lettersUsed: [],
     gallowsState: 0,
+    checkWinningState: function() {
+        return (this.workingWord === this.solutionWord)
+    },
+    checkLosingState: function() {
+        return (this.gallowsState >= 9);
+    },
+    increaseGallowsState: function() {
+        this.gallowsState++
+    },
+    gallowsLevel: ["None","Head","Neck","Arm 1", "Arm 2", "Torso", "Leg 1", "Leg 2", "Foot 1", "Foot 2"]
 };
 
 const workSpace = document.getElementById("wordBlank");
 const startButton = document.getElementById("startButton");
 const lettersUsedPara = document.getElementById("lettersused");
+const wordLengthCombo = document.getElementById("wordLengthSelection");
+const wordLengthLabel = document.getElementById("wordLengthLabel");
+const instructionsHeader = document.getElementById("instructions");
+const conditionsHeader = document.getElementById("condition")
 async function setup() {
+    //get the word list and jsonify it
     wordCollection = await fetch("./wordlist.json");
     wordCollection = await wordCollection.json();
+    //add event listeners
     startButton.addEventListener('click', (e) => startButton_click(e));
     document.body.addEventListener('keypress', (e) => body_keypress(e));
     //words = null;
 }
 
 async function main() {
-    //setup the initial full word list
     
     await setup();
     //is this even necessary?
@@ -49,9 +64,12 @@ function startButton_click(e) {
     gameState.solutionWord = wordCollection[wordLength][indexOfWord].toUpperCase();
     gameState.workingWord = removeLetters(gameState.solutionWord);
     gameState.lettersUsed = [];
-    lettersUsedPara.innerHTML = "&nbsp;"
+    lettersUsedPara.innerHTML = "&nbsp;";
     workSpace.textContent = gameState.workingWord;
-    
+    wordLengthCombo.hidden = true;
+    wordLengthLabel.hidden = true;
+    startButton.hidden = true;
+    instructionsHeader.textContent = "Press any letter on your keyboard!";
 }
 
 function body_keypress(e) {
@@ -72,7 +90,14 @@ function body_keypress(e) {
     let letterPositions = checkLetter(keyPressed, gameState.solutionWord);
     
     //Change this so that it advances the gallows
-    if(letterPositions.length === 0) return null;
+    if(letterPositions.length === 0) {
+        gameState.increaseGallowsState();
+        let loss = gameState.checkLosingState();
+        conditionsHeader.textContent = gameState.gallowsLevel[gameState.gallowsState];
+        if(loss){
+            conditionsHeader.textContent = "YOU'VE LOST!"
+        }
+    }
     letterPositions.forEach((index) => {
         gameState.workingWord = replaceAt(gameState.workingWord, index, keyPressed);
     })

@@ -61,7 +61,7 @@ div#startSpace {
     font-size: 48pt;
     letter-spacing: 0.4em;
     text-align: center;
-    height:25%;
+    height:50%;
     vertical-align: middle;
 }
 
@@ -74,4 +74,17 @@ div#startSpace {
     background-color: midnightblue;
     color:aliceblue;
     text-align: center;
+}
+
+#instructions {
+    color:aliceblue;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 16pt;
+    padding: 0;
+}
+
+#condition {
+    border:1px solid aliceblue;
+    height:40%;
 }
