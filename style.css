@@ -39,12 +39,30 @@ div#startSpace {
     font-weight:bold;
     color:aliceblue;
 }
+#board {
+    display:flex;
+    flex-direction: row;
+    height:80%;
+}
+#workspace {
+    display:flex;
+    flex-direction: column;
+    width:66%;
+}
 
-#workSpace {
+#gallows{
+    width:33%;
+    height:600px;
+    border: 1px solid black;
+}
+
+#wordBlank {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 48pt;
     letter-spacing: 0.4em;
     text-align: center;
+    height:25%;
+    vertical-align: middle;
 }
 
 #lettersuseddiv {

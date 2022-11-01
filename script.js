@@ -8,8 +8,10 @@ let gameState = {
     solutionWord: "",
     workingWord: "",
     lettersUsed: [],
+    gallowsState: 0,
 };
-const workSpace = document.getElementById("workSpace");
+
+const workSpace = document.getElementById("wordBlank");
 const startButton = document.getElementById("startButton");
 const lettersUsedPara = document.getElementById("lettersused");
 async function setup() {
@@ -80,15 +82,12 @@ function body_keypress(e) {
 function checkLetter(letter, word) {
     //checks if a letter is in a word.  Returns an array
     //containing the indices of the letter in question
-    console.log(letter, word);
     let indices = [];
     for(let i = 0; i < word.length; i++) {
-        console.log(i);
         if (word[i] === letter) {
             indices.push(i);
         }
     }
-    console.log(indices.join(", "))
     return indices;
 }
 
