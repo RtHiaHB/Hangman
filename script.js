@@ -9,14 +9,16 @@ let gameState = {
     workingWord: "",
     lettersUsed: [],
     gallowsState: 0,
+    gallowsImage: null,
     checkWinningState: function() {
-        return (this.workingWord === this.solutionWord)
+        return (this.solutionWord != "" && this.workingWord === this.solutionWord)
     },
     checkLosingState: function() {
         return (this.gallowsState >= 9);
     },
     increaseGallowsState: function() {
-        this.gallowsState++
+        this.gallowsState++;
+        this.gallowsImage.src = "assets/gallows-" + this.gallowsState + '.png';
     },
     gallowsLevel: ["None","Head","Neck","Arm 1", "Arm 2", "Torso", "Leg 1", "Leg 2", "Foot 1", "Foot 2"],
     gameEnded: false,
@@ -28,11 +30,12 @@ const lettersUsedPara = document.getElementById("lettersused");
 const wordLengthCombo = document.getElementById("wordLengthSelection");
 const wordLengthLabel = document.getElementById("wordLengthLabel");
 const instructionsHeader = document.getElementById("instructions");
-const conditionsHeader = document.getElementById("condition")
+const conditionsHeader = document.getElementById("condition");
 async function setup() {
     //get the word list and jsonify it
     wordCollection = await fetch("./wordlist.json");
     wordCollection = await wordCollection.json();
+    gameState.gallowsImage = document.getElementById("gallowspicture");
     //add event listeners
     startButton.addEventListener('click', (e) => startButton_click(e));
     document.body.addEventListener('keypress', (e) => body_keypress(e));
@@ -82,8 +85,9 @@ function body_keypress(e) {
         return null;
     }
     let charCode = keyPressed.charCodeAt(0);
+    console.log(charCode);
     //if the key isn't a letter, stop processing.
-    if(charCode < 65 || charCode > 90) {return null}
+    if(charCode < 65 || charCode > 90 || keyPressed === "ENTER") {return null}
     //if the letter has been pressed before, stop processing
     if(isInArray(keyPressed, gameState.lettersUsed)) {
         return null;
@@ -106,6 +110,7 @@ function body_keypress(e) {
             instructionsHeader.textContent = "Press any key to continue";
             workSpace.textContent = gameState.solutionWord;
             gameState.gameEnded = true;
+            return null;
         }
     }
     //the working word is what the player has figured out so far, so we need to record that:
@@ -114,8 +119,8 @@ function body_keypress(e) {
     })
     //check for the winning condition
     if(gameState.checkWinningState()) {
-        conditionsHeader.textContent = "YOU'VE WON!"
-        instructionsHeader.textContent = "Press any key to continue"
+        conditionsHeader.textContent = "YOU'VE WON!";
+        instructionsHeader.textContent = "Press any key to continue";
         gameState.gameEnded = true;
     }
     workSpace.textContent = gameState.workingWord;
@@ -154,6 +159,8 @@ function restartGame() {
     gameState.workingWord = "";
     gameState.solutionWord = "";
     gameState.gallowsState = 0;
+    gameState.gallowsImage.src = "./assets/gallows-0.png"
     workSpace.innerHTML = "&nbsp;";
-    conditionsHeader.innerHTML = '&nbsp;'
+    conditionsHeader.innerHTML = '&nbsp;';
+    startButton.focus();
 }
