@@ -59,9 +59,6 @@ function removeLetters(word) {
 }
 
 function startButton_click(e) {
-    //For testing purposes, I'm going to test with wordlength 6
-    //I plan a dropdown box where the user can select how long the
-    //word they want
     const wordLength = wordLengthCombo.value;
     const numberOfWords = wordCollection[wordLength].length;
     let indexOfWord = Math.floor(Math.random() * numberOfWords);
@@ -74,6 +71,7 @@ function startButton_click(e) {
     wordLengthLabel.hidden = true;
     startButton.hidden = true;
     instructionsHeader.textContent = "Press any letter on your keyboard!";
+    gameState.gameEnded = false;
 }
 
 function body_keypress(e) {
@@ -104,7 +102,6 @@ function body_keypress(e) {
     if(letterPositions.length === 0) {
         gameState.increaseGallowsState();
         let loss = gameState.checkLosingState();
-        conditionsHeader.textContent = gameState.gallowsLevel[gameState.gallowsState];
         if(loss){
             conditionsHeader.textContent = "YOU'VE LOST!";
             instructionsHeader.textContent = "Press any key to continue";
@@ -155,7 +152,6 @@ function restartGame() {
     wordLengthCombo.value = gameState.solutionWord.length;
     wordLengthLabel.hidden = false;
     startButton.hidden = false;
-    gameState.gameEnded = false;
     gameState.workingWord = "";
     gameState.solutionWord = "";
     gameState.gallowsState = 0;
@@ -163,4 +159,5 @@ function restartGame() {
     workSpace.innerHTML = "&nbsp;";
     conditionsHeader.innerHTML = '&nbsp;';
     startButton.focus();
+    lettersUsedPara.innerHTML = '&nbsp;';
 }
