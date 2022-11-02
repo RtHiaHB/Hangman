@@ -22,6 +22,7 @@ let gameState = {
     },
     gallowsLevel: ["None","Head","Neck","Arm 1", "Arm 2", "Torso", "Leg 1", "Leg 2", "Foot 1", "Foot 2"],
     gameEnded: false,
+    anyKey: false,
 };
 
 const workSpace = document.getElementById("wordBlank");
@@ -77,15 +78,20 @@ function startButton_click(e) {
 function body_keypress(e) {
     //e.key will give you the key actually pressed
     const keyPressed = e.key.toUpperCase();
+
+    //This is to correct a bug until I get a better handle on it
+    if(keyPressed === "ENTER" && gameState.gameEnded === true && !gameState.anyKey) return null
+
     //if the game has ended, restart the game and exit
     if(gameState.gameEnded) {
         restartGame();
+        gameState.anyKey = false;
         return null;
     }
     let charCode = keyPressed.charCodeAt(0);
     console.log(charCode);
     //if the key isn't a letter, stop processing.
-    if(charCode < 65 || charCode > 90 || keyPressed === "ENTER") {return null}
+    if(charCode < 65 || charCode > 90) {return null}
     //if the letter has been pressed before, stop processing
     if(isInArray(keyPressed, gameState.lettersUsed)) {
         return null;
@@ -107,6 +113,7 @@ function body_keypress(e) {
             instructionsHeader.textContent = "Press any key to continue";
             workSpace.textContent = gameState.solutionWord;
             gameState.gameEnded = true;
+            gameState.anyKey = true;
             return null;
         }
     }
@@ -119,6 +126,7 @@ function body_keypress(e) {
         conditionsHeader.textContent = "YOU'VE WON!";
         instructionsHeader.textContent = "Press any key to continue";
         gameState.gameEnded = true;
+        gameState.anyKey = true;
     }
     workSpace.textContent = gameState.workingWord;
 }
@@ -147,6 +155,7 @@ function isInArray(letter, arr) {
 }
 
 function restartGame() {
+    if(instructionsHeader.innerHTML === '&nbsp;') return null;
     instructionsHeader.innerHTML = "&nbsp;";
     wordLengthCombo.hidden = false;
     wordLengthCombo.value = gameState.solutionWord.length;
