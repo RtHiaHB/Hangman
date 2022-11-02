@@ -52,7 +52,6 @@ div#startSpace {
 
 #gallows{
     width:33%;
-    height:600px;
     border: 1px solid black;
 }
 
@@ -61,7 +60,7 @@ div#startSpace {
     font-size: 48pt;
     letter-spacing: 0.4em;
     text-align: center;
-    height:50%;
+    height:40%;
     vertical-align: middle;
 }
 

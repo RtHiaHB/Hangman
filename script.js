@@ -18,7 +18,8 @@ let gameState = {
     increaseGallowsState: function() {
         this.gallowsState++
     },
-    gallowsLevel: ["None","Head","Neck","Arm 1", "Arm 2", "Torso", "Leg 1", "Leg 2", "Foot 1", "Foot 2"]
+    gallowsLevel: ["None","Head","Neck","Arm 1", "Arm 2", "Torso", "Leg 1", "Leg 2", "Foot 1", "Foot 2"],
+    gameEnded: false,
 };
 
 const workSpace = document.getElementById("wordBlank");
@@ -58,7 +59,7 @@ function startButton_click(e) {
     //For testing purposes, I'm going to test with wordlength 6
     //I plan a dropdown box where the user can select how long the
     //word they want
-    const wordLength = 6;
+    const wordLength = wordLengthCombo.value;
     const numberOfWords = wordCollection[wordLength].length;
     let indexOfWord = Math.floor(Math.random() * numberOfWords);
     gameState.solutionWord = wordCollection[wordLength][indexOfWord].toUpperCase();
@@ -75,6 +76,11 @@ function startButton_click(e) {
 function body_keypress(e) {
     //e.key will give you the key actually pressed
     const keyPressed = e.key.toUpperCase();
+    //if the game has ended, restart the game and exit
+    if(gameState.gameEnded) {
+        restartGame();
+        return null;
+    }
     let charCode = keyPressed.charCodeAt(0);
     //if the key isn't a letter, stop processing.
     if(charCode < 65 || charCode > 90) {return null}
@@ -89,18 +95,29 @@ function body_keypress(e) {
     
     let letterPositions = checkLetter(keyPressed, gameState.solutionWord);
     
-    //Change this so that it advances the gallows
+    //if nothing came back from the checkLetter(a,b) function, the letter wasn't in the
+    //solution.  Advance the gallows one step, check to see if we've lost the game
     if(letterPositions.length === 0) {
         gameState.increaseGallowsState();
         let loss = gameState.checkLosingState();
         conditionsHeader.textContent = gameState.gallowsLevel[gameState.gallowsState];
         if(loss){
-            conditionsHeader.textContent = "YOU'VE LOST!"
+            conditionsHeader.textContent = "YOU'VE LOST!";
+            instructionsHeader.textContent = "Press any key to continue";
+            workSpace.textContent = gameState.solutionWord;
+            gameState.gameEnded = true;
         }
     }
+    //the working word is what the player has figured out so far, so we need to record that:
     letterPositions.forEach((index) => {
         gameState.workingWord = replaceAt(gameState.workingWord, index, keyPressed);
     })
+    //check for the winning condition
+    if(gameState.checkWinningState()) {
+        conditionsHeader.textContent = "YOU'VE WON!"
+        instructionsHeader.textContent = "Press any key to continue"
+        gameState.gameEnded = true;
+    }
     workSpace.textContent = gameState.workingWord;
 }
 
@@ -125,4 +142,18 @@ function replaceAt(original, index, replacement) {
 function isInArray(letter, arr) {
     let filtered = arr.filter((item) => item === letter);
     return (filtered.length > 0)
+}
+
+function restartGame() {
+    instructionsHeader.innerHTML = "&nbsp;";
+    wordLengthCombo.hidden = false;
+    wordLengthCombo.value = gameState.solutionWord.length;
+    wordLengthLabel.hidden = false;
+    startButton.hidden = false;
+    gameState.gameEnded = false;
+    gameState.workingWord = "";
+    gameState.solutionWord = "";
+    gameState.gallowsState = 0;
+    workSpace.innerHTML = "&nbsp;";
+    conditionsHeader.innerHTML = '&nbsp;'
 }
