@@ -17,10 +17,18 @@ The word selected will be:
 
 `wordSelected = wordCollection[wordLength][indexOfWord]`
 
-We then have to go through and exchange all letters in the word for an underscore. This will leave things like dashes and apostrophes.  I don't think the word list I found (from Node.js) has any words with dashes (top-off) or apostrophes (they've), but I think it's good practice to make sure.
+We then have to go through and exchange all letters in the word for an underscore. This will leave things like dashes and apostrophes.  I don't think the word list I found (see my acknowledgements below) has any words with dashes (top-off) or apostrophes (they've), but I think it's good practice to make sure.
 
 Anyway, to start a game, the player selects how long of a word they want, then click "Start." The game selects a word of the requested length, and displays a letter indicator.  The player then types letters into his keyboard. First, the game checks to see if it has already been selected; if it has, the game ignores it, else:
 
 If the letter is in the solution, it updates the letter indicators to show position(s) in the solution.  If not, it adds a level of sorrow for the hanging man: head first, then neck, left arm, right arm, torso, left leg, right leg, left foot, right foot.  Either way, it adds the letter to the list of selected letters.  This will also be visible to the player.
 
+It then checks for a win or loss condition.  If it finds either one, it will end the game, let the player know how they did, and instruct them to press any key to continue.
+
+Eventually, I would like a scoring system: 10 for getting it without hurting the guy, and 1 if you're down to the last foot.
+
+## Acknowledgements
+
 Wordlist forked from: [first20hours' Github repo](https://github.com/first20hours/google-10000-english).
+
+Hangman art by Tim Callihan.  Thanks, Tim!
