@@ -14,13 +14,15 @@ div#selectionSpace {
     display:flex;
     flex-direction: row;
     /* margin-right:15px; */
-    border-radius:5px;
-    padding:10px;
+    /* border-radius:5px; */
+    background-color: slategray;
+    border-radius: 10px;
 }
 
 .spacer {
     width:37.5%;
     background-color: slategray;
+    border-radius: 4px;
 }
 
 div#startSpace {
@@ -31,12 +33,11 @@ div#startSpace {
     background-color: slategray;
     height:25%;
     width:25%;
-    padding:10px;
 }
 
 #wordLengthLabel {
     font-family:Arial, Helvetica, sans-serif;
-    font-size: 14pt;
+    font-size: 16pt;
     font-weight:bold;
     color:aliceblue;
 }
@@ -49,7 +50,7 @@ div#startSpace {
     display:flex;
     flex-direction: column;
     width:66%;
-
+    
 }
 
 #gallows{
@@ -71,7 +72,6 @@ div#startSpace {
     font-size:14pt;
     border: 3px solid slategray;
     border-radius: 5px;
-    padding:10px;
     background-color: slategray;
     color:aliceblue;
     text-align: center;
@@ -82,13 +82,19 @@ div#startSpace {
     font-family:Arial, Helvetica, sans-serif;
     text-align: center;
     font-size: 16pt;
-    padding: 0;
 }
 
 #condition {
-    height:40%;
+    height:30%;
 }
 
 #gallowspicture {
     width:100%;
+}
+
+#gamescore {
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 14pt;
+    font-weight: bold;
+    text-align: center;
 }

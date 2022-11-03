@@ -20,9 +20,29 @@ let gameState = {
         this.gallowsState++;
         this.gallowsImage.src = "assets/gallows-" + this.gallowsState + '.png';
     },
+    timeMultiplier: function() {
+        let elapsedTime = parseFloat(gameState.endDate - gameState.startDate);
+        if (elapsedTime > 119000) {
+            return 1;
+        } else {
+            let milliseconds = Math.round(elapsedTime);
+            return (120000 - milliseconds);
+        }
+    },
+    levelScore: function(){
+        return 9 - this.gallowsState;
+    },
+    totalScore: function() {
+        let tm = this.timeMultiplier();
+        let ls = this.levelScore();
+        let ts = tm * ls;
+        return ts;
+    },
     gallowsLevel: ["None","Head","Neck","Arm 1", "Arm 2", "Torso", "Leg 1", "Leg 2", "Foot 1", "Foot 2"],
     gameEnded: false,
     anyKey: false,
+    startDate: null,
+    endDate: null,
 };
 
 const workSpace = document.getElementById("wordBlank");
@@ -32,6 +52,7 @@ const wordLengthCombo = document.getElementById("wordLengthSelection");
 const wordLengthLabel = document.getElementById("wordLengthLabel");
 const instructionsHeader = document.getElementById("instructions");
 const conditionsHeader = document.getElementById("condition");
+const gameScore = document.getElementById("gamescore");
 async function setup() {
     //get the word list and jsonify it
     wordCollection = await fetch("./wordlist.json");
@@ -73,6 +94,7 @@ function startButton_click(e) {
     startButton.hidden = true;
     instructionsHeader.textContent = "Press any letter on your keyboard!";
     gameState.gameEnded = false;
+    gameState.startDate = new Date().getTime();
 }
 
 function body_keypress(e) {
@@ -89,9 +111,8 @@ function body_keypress(e) {
         return null;
     }
     let charCode = keyPressed.charCodeAt(0);
-    console.log(charCode);
     //if the key isn't a letter, stop processing.
-    if(charCode < 65 || charCode > 90) {return null}
+    if(charCode < 65 || charCode > 90 || keyPressed === "ENTER") {return null}
     //if the letter has been pressed before, stop processing
     if(isInArray(keyPressed, gameState.lettersUsed)) {
         return null;
@@ -123,10 +144,12 @@ function body_keypress(e) {
     })
     //check for the winning condition
     if(gameState.checkWinningState()) {
+        gameState.endDate = new Date().getTime();
         conditionsHeader.textContent = "YOU'VE WON!";
         instructionsHeader.textContent = "Press any key to continue";
         gameState.gameEnded = true;
         gameState.anyKey = true;
+        gameScore.textContent = `Score: ${gameState.totalScore()}`;
     }
     workSpace.textContent = gameState.workingWord;
 }
@@ -157,6 +180,7 @@ function isInArray(letter, arr) {
 function restartGame() {
     if(instructionsHeader.innerHTML === '&nbsp;') return null;
     instructionsHeader.innerHTML = "&nbsp;";
+    gameScore.innerHTML = "&nbsp;";
     wordLengthCombo.hidden = false;
     wordLengthCombo.value = gameState.solutionWord.length;
     wordLengthLabel.hidden = false;
