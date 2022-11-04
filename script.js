@@ -111,7 +111,11 @@ function body_keypress(e) {
         return null;
     }
     let charCode = keyPressed.charCodeAt(0);
+    
     //if the key isn't a letter, stop processing.
+    //'enter' is a special case, because for some reason, JavaScript makes the <enter> key the string "enter,"
+    //not char(13) like it does in every other programming language.
+    //Bug or feature?  You decide.
     if(charCode < 65 || charCode > 90 || keyPressed === "ENTER") {return null}
     //if the letter has been pressed before, stop processing
     if(isInArray(keyPressed, gameState.lettersUsed)) {
@@ -119,9 +123,13 @@ function body_keypress(e) {
     }
     gameState.lettersUsed.push(keyPressed);
     gameState.lettersUsed.sort();
+    
     //display letters used on the page so the player gets hints of what isn't in the word
     lettersUsedPara.textContent = gameState.lettersUsed.join(", ");
     
+    //check letter checks to see if a letter (in this case, keyPressed) is in a word (in this case, gs.solutionWord)
+    //checkLetter returns an array with the 0-based indices of where in the word the particular letter was found.
+    //for example, checkLetter('a','attack') will return [0,3] because 'a' is in the first and the fourth positions.
     let letterPositions = checkLetter(keyPressed, gameState.solutionWord);
     
     //if nothing came back from the checkLetter(a,b) function, the letter wasn't in the
@@ -138,10 +146,12 @@ function body_keypress(e) {
             return null;
         }
     }
+
     //the working word is what the player has figured out so far, so we need to record that:
     letterPositions.forEach((index) => {
         gameState.workingWord = replaceAt(gameState.workingWord, index, keyPressed);
     })
+
     //check for the winning condition
     if(gameState.checkWinningState()) {
         gameState.endDate = new Date().getTime();
@@ -149,8 +159,10 @@ function body_keypress(e) {
         instructionsHeader.textContent = "Press any key to continue";
         gameState.gameEnded = true;
         gameState.anyKey = true;
-        gameScore.textContent = `Score: ${gameState.totalScore()}`;
+        gameScore.textContent = `Score: ${gameState.totalScore().toLocaleString()}`;
     }
+    
+    //put what the player has achieved in the gameboard
     workSpace.textContent = gameState.workingWord;
 }
 
@@ -166,8 +178,8 @@ function checkLetter(letter, word) {
     return indices;
 }
 
-//code modified from https://stackoverflow.com/a/1431113
 
+//code modified from https://stackoverflow.com/a/1431113
 function replaceAt(original, index, replacement) {
     return  original.substring(0, index) + replacement + original.substring(index + replacement.length);
 }
@@ -194,3 +206,4 @@ function restartGame() {
     startButton.focus();
     lettersUsedPara.innerHTML = '&nbsp;';
 }
+
