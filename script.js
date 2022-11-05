@@ -218,12 +218,12 @@ function showScoresTable() {
     
     let top10Scores = getTopTenScores();
     let currentScore = document.getElementById('currentScore');
-    currentScore.textContent = `Current score: ${gameState.totalScore()}`
+    currentScore.textContent = `Current score: ${gameState.totalScore().toLocaleString()}`
     for(let i = 0; i < top10Scores.length; i++) {
         let dateTimeTD = document.getElementById('dateTimeTD' + i);
         let scoreTD = document.getElementById('score' + i);
         dateTimeTD.textContent = top10Scores[i].dateTime;
-        scoreTD.textContent = top10Scores[i].score;
+        scoreTD.textContent = parseInt(top10Scores[i].score).toLocaleString();
     }
     td.style.display = 'inline';
     
