@@ -3,22 +3,24 @@
 // words.words.lengths = words.lengths;
 
 let wordCollection = [];
-
+let gb = document.createElement('div');
+gb.style.display = 'none';
+document.body.appendChild(gb);
 let gameState = {
-    solutionWord: "",
-    workingWord: "",
+    solutionWord: '',
+    workingWord: '',
     lettersUsed: [],
     gallowsState: 0,
     gallowsImage: null,
     checkWinningState: function() {
-        return (this.solutionWord != "" && this.workingWord === this.solutionWord)
+        return (this.solutionWord != '' && this.workingWord === this.solutionWord)
     },
     checkLosingState: function() {
         return (this.gallowsState >= 9);
     },
     increaseGallowsState: function() {
         this.gallowsState++;
-        this.gallowsImage.src = "assets/gallows-" + this.gallowsState + '.png';
+        this.gallowsImage.src = 'assets/gallows-' + this.gallowsState + '.png';
     },
     timeMultiplier: function() {
         let elapsedTime = parseFloat(gameState.endDate - gameState.startDate);
@@ -38,29 +40,32 @@ let gameState = {
         let ts = tm * ls;
         return ts;
     },
-    gallowsLevel: ["None","Head","Neck","Arm 1", "Arm 2", "Torso", "Leg 1", "Leg 2", "Foot 1", "Foot 2"],
+    gallowsLevel: ['None','Head','Neck','Arm 1', 'Arm 2', 'Torso', 'Leg 1', 'Leg 2', 'Foot 1', 'Foot 2'],
     gameEnded: false,
     anyKey: false,
     startDate: null,
     endDate: null,
 };
 
-const workSpace = document.getElementById("wordBlank");
-const startButton = document.getElementById("startButton");
-const lettersUsedPara = document.getElementById("lettersused");
-const wordLengthCombo = document.getElementById("wordLengthSelection");
-const wordLengthLabel = document.getElementById("wordLengthLabel");
-const instructionsHeader = document.getElementById("instructions");
-const conditionsHeader = document.getElementById("condition");
-const gameScore = document.getElementById("gamescore");
+const workSpace = document.getElementById('wordBlank');
+const startButton = document.getElementById('startButton');
+const lettersUsedPara = document.getElementById('lettersused');
+const wordLengthCombo = document.getElementById('wordLengthSelection');
+const wordLengthLabel = document.getElementById('wordLengthLabel');
+const instructionsHeader = document.getElementById('instructions');
+const conditionsHeader = document.getElementById('condition');
+const gameScore = document.getElementById('gamescore');
+const restartButton = document.getElementById('restartButton');
+const td = document.getElementById('tableDiv');
 async function setup() {
     //get the word list and jsonify it
-    wordCollection = await fetch("./wordlist.json");
+    wordCollection = await fetch('./wordlist.json');
     wordCollection = await wordCollection.json();
-    gameState.gallowsImage = document.getElementById("gallowspicture");
+    gameState.gallowsImage = document.getElementById('gallowspicture');
     //add event listeners
     startButton.addEventListener('click', (e) => startButton_click(e));
     document.body.addEventListener('keypress', (e) => body_keypress(e));
+    restartButton.addEventListener('click',() => restartButton_click());
     //words = null;
 }
 
@@ -76,7 +81,7 @@ main()
 
 function removeLetters(word) {
     const rx = /[a-z]/ig;
-    let myReturn = word.replace(rx, "_");
+    let myReturn = word.replace(rx, '_');
     return myReturn;
 }
 
@@ -87,12 +92,12 @@ function startButton_click(e) {
     gameState.solutionWord = wordCollection[wordLength][indexOfWord].toUpperCase();
     gameState.workingWord = removeLetters(gameState.solutionWord);
     gameState.lettersUsed = [];
-    lettersUsedPara.innerHTML = "&nbsp;";
+    lettersUsedPara.innerHTML = '&nbsp;';
     workSpace.textContent = gameState.workingWord;
     wordLengthCombo.hidden = true;
     wordLengthLabel.hidden = true;
     startButton.hidden = true;
-    instructionsHeader.textContent = "Press any letter on your keyboard!";
+    instructionsHeader.textContent = 'Press any letter on your keyboard!';
     gameState.gameEnded = false;
     gameState.startDate = new Date().getTime();
 }
@@ -102,7 +107,7 @@ function body_keypress(e) {
     const keyPressed = e.key.toUpperCase();
 
     //This is to correct a bug until I get a better handle on it
-    if(keyPressed === "ENTER" && gameState.gameEnded === true && !gameState.anyKey) return null
+    if(keyPressed === 'ENTER' && gameState.gameEnded === true && !gameState.anyKey) return null
 
     //if the game has ended, restart the game and exit
     if(gameState.gameEnded) {
@@ -113,10 +118,10 @@ function body_keypress(e) {
     let charCode = keyPressed.charCodeAt(0);
     
     //if the key isn't a letter, stop processing.
-    //'enter' is a special case, because for some reason, JavaScript makes the <enter> key the string "enter,"
+    //'enter' is a special case, because for some reason, JavaScript makes the <enter> key the string 'enter,'
     //not char(13) like it does in every other programming language.
     //Bug or feature?  You decide.
-    if(charCode < 65 || charCode > 90 || keyPressed === "ENTER") {return null}
+    if(charCode < 65 || charCode > 90 || keyPressed === 'ENTER') {return null}
     //if the letter has been pressed before, stop processing
     if(isInArray(keyPressed, gameState.lettersUsed)) {
         return null;
@@ -125,7 +130,7 @@ function body_keypress(e) {
     gameState.lettersUsed.sort();
     
     //display letters used on the page so the player gets hints of what isn't in the word
-    lettersUsedPara.textContent = gameState.lettersUsed.join(", ");
+    lettersUsedPara.textContent = gameState.lettersUsed.join(', ');
     
     //check letter checks to see if a letter (in this case, keyPressed) is in a word (in this case, gs.solutionWord)
     //checkLetter returns an array with the 0-based indices of where in the word the particular letter was found.
@@ -138,8 +143,8 @@ function body_keypress(e) {
         gameState.increaseGallowsState();
         let loss = gameState.checkLosingState();
         if(loss){
-            conditionsHeader.textContent = "YOU'VE LOST!";
-            instructionsHeader.textContent = "Press any key to continue";
+            conditionsHeader.textContent = 'YOU\'VE LOST!';
+            instructionsHeader.textContent = 'Press any key to continue';
             workSpace.textContent = gameState.solutionWord;
             gameState.gameEnded = true;
             gameState.anyKey = true;
@@ -154,12 +159,7 @@ function body_keypress(e) {
 
     //check for the winning condition
     if(gameState.checkWinningState()) {
-        gameState.endDate = new Date().getTime();
-        conditionsHeader.textContent = "YOU'VE WON!";
-        instructionsHeader.textContent = "Press any key to continue";
-        gameState.gameEnded = true;
-        gameState.anyKey = true;
-        gameScore.textContent = `Score: ${gameState.totalScore().toLocaleString()}`;
+        winner();
     }
     
     //put what the player has achieved in the gameboard
@@ -186,24 +186,78 @@ function replaceAt(original, index, replacement) {
 
 function isInArray(letter, arr) {
     let filtered = arr.filter((item) => item === letter);
-    return (filtered.length > 0)
+    return (filtered.length > 0);
 }
 
 function restartGame() {
     if(instructionsHeader.innerHTML === '&nbsp;') return null;
-    instructionsHeader.innerHTML = "&nbsp;";
-    gameScore.innerHTML = "&nbsp;";
+    instructionsHeader.innerHTML = '&nbsp;';
+    gameScore.innerHTML = '&nbsp;';
     wordLengthCombo.hidden = false;
     wordLengthCombo.value = gameState.solutionWord.length;
     wordLengthLabel.hidden = false;
     startButton.hidden = false;
-    gameState.workingWord = "";
-    gameState.solutionWord = "";
+    gameState.workingWord = '';
+    gameState.solutionWord = '';
     gameState.gallowsState = 0;
-    gameState.gallowsImage.src = "./assets/gallows-0.png"
-    workSpace.innerHTML = "&nbsp;";
+    gameState.gallowsImage.src = './assets/gallows-0.png'
+    workSpace.innerHTML = '&nbsp;';
     conditionsHeader.innerHTML = '&nbsp;';
     startButton.focus();
     lettersUsedPara.innerHTML = '&nbsp;';
 }
 
+function recordScore() {
+    let score = gameState.totalScore();
+    let key = new Date();
+    localStorage.setItem(`${key.toLocaleDateString()} ${key.toLocaleTimeString()}`, score);
+
+}
+
+function showScoresTable() {
+    
+    let top10Scores = getTopTenScores();
+    let currentScore = document.getElementById('currentScore');
+    currentScore.textContent = `Current score: ${gameState.totalScore()}`
+    for(let i = 0; i < top10Scores.length; i++) {
+        let dateTimeTD = document.getElementById('dateTimeTD' + i);
+        let scoreTD = document.getElementById('score' + i);
+        dateTimeTD.textContent = top10Scores[i].dateTime;
+        scoreTD.textContent = top10Scores[i].score;
+    }
+    td.style.display = 'inline';
+    
+}
+
+function restartButton_click() {
+    td.style.display='none';
+    restartGame();
+}
+
+function getTopTenScores() {
+    let scores = [];
+    let top10Scores = [];
+    let scoreObject;
+    for(let i = 0; i < localStorage.length; i++) {
+        let key = localStorage.key(i);
+        let score = localStorage.getItem(key);
+        scoreObject = { dateTime: key, score: score };
+        scores.push(scoreObject);
+    }
+    scores.sort((a,b) => b.score - a.score);
+    if(scores.length <= 10) return scores;
+    for(let i = 0; i <= 9; i++) {
+        top10Scores.push(scores[i]);
+    }
+    return top10Scores;
+}
+
+function winner() {
+    gameState.endDate = new Date().getTime();
+    instructionsHeader.textContent = 'Press any key to continue';
+    gameState.gameEnded = true;
+    gameState.anyKey = true;
+    recordScore();
+    let table = showScoresTable();
+    
+}
