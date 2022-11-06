@@ -1,6 +1,3 @@
-// var words = require('./words.json');
-// module.exports = words.words;
-// words.words.lengths = words.lengths;
 
 let wordCollection = [];
 let gb = document.createElement('div');
@@ -73,8 +70,6 @@ async function main() {
     
     await setup();
     //is this even necessary?
-    
-    
 }
 
 main()
@@ -189,7 +184,11 @@ function isInArray(letter, arr) {
     return (filtered.length > 0);
 }
 
+//this function resets everything to the starting state and
+//sets it up so the player can pick the size of word like he could at the beginning
 function restartGame() {
+    //This prevents an issue where this would be run multiple times
+    //in a row.
     if(instructionsHeader.innerHTML === '&nbsp;') return null;
     instructionsHeader.innerHTML = '&nbsp;';
     gameScore.innerHTML = '&nbsp;';
@@ -238,14 +237,23 @@ function getTopTenScores() {
     let scores = [];
     let top10Scores = [];
     let scoreObject;
+    //first, get all of the scores from local storage
     for(let i = 0; i < localStorage.length; i++) {
         let key = localStorage.key(i);
         let score = localStorage.getItem(key);
         scoreObject = { dateTime: key, score: score };
         scores.push(scoreObject);
     }
+
+    //sort the list of scores by score in reverse order
     scores.sort((a,b) => b.score - a.score);
+    //Hey, I just thought of something: what happens when we
+    //have less than 10 scores? Well, it's already sorted.
+    //We'll save a few processing cycles by returning what we have
+    //so far
     if(scores.length <= 10) return scores;
+
+    //Create a list of just the top ten scores and return it
     for(let i = 0; i <= 9; i++) {
         top10Scores.push(scores[i]);
     }
@@ -258,6 +266,6 @@ function winner() {
     gameState.gameEnded = true;
     gameState.anyKey = true;
     recordScore();
-    let table = showScoresTable();
-    
+        showScoresTable();
+    restartButton.focus();
 }
