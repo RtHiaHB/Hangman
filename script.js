@@ -283,7 +283,6 @@ let x = setInterval(function() {
         timer.textContent = '00.00';
         return null;
     }
-    console.log(gameState.timerDate);
     let minutes = Math.floor((distance % (1000 * 60 * 60))/(1000 * 60));
     let seconds = Math.floor((distance % (1000 * 60))/ 1000);
     timer.textContent = `${minutes}:${seconds}`;
