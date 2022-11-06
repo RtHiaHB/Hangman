@@ -38,9 +38,10 @@ let gameState = {
         return ts;
     },
     gallowsLevel: ['None','Head','Neck','Arm 1', 'Arm 2', 'Torso', 'Leg 1', 'Leg 2', 'Foot 1', 'Foot 2'],
-    gameEnded: false,
+    gameEnded: true,
     anyKey: false,
     startDate: null,
+    timerDate: null,
     endDate: null,
 };
 
@@ -54,6 +55,7 @@ const conditionsHeader = document.getElementById('condition');
 const gameScore = document.getElementById('gamescore');
 const restartButton = document.getElementById('restartButton');
 const td = document.getElementById('tableDiv');
+const timer = document.getElementById('timer');
 async function setup() {
     //get the word list and jsonify it
     wordCollection = await fetch('./wordlist.json');
@@ -95,6 +97,7 @@ function startButton_click(e) {
     instructionsHeader.textContent = 'Press any letter on your keyboard!';
     gameState.gameEnded = false;
     gameState.startDate = new Date().getTime();
+    gameState.timerDate = gameState.startDate + 120000
 }
 
 function body_keypress(e) {
@@ -191,6 +194,7 @@ function restartGame() {
     //in a row.
     if(instructionsHeader.innerHTML === '&nbsp;') return null;
     instructionsHeader.innerHTML = '&nbsp;';
+    timer.innerHTML = '&nbsp;';
     gameScore.innerHTML = '&nbsp;';
     wordLengthCombo.hidden = false;
     wordLengthCombo.value = gameState.solutionWord.length;
@@ -269,3 +273,13 @@ function winner() {
         showScoresTable();
     restartButton.focus();
 }
+
+let x = setInterval(function() {
+    if(gameState.gameEnded) return null;
+    let now = new Date().getTime();
+    let distance = gameState.timerDate - now;
+    console.log(gameState.timerDate);
+    let minutes = Math.floor((distance % (1000 * 60 * 60))/(1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60))/ 1000);
+    timer.textContent = `${minutes}:${seconds}`;
+}, 1000)
