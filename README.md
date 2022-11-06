@@ -4,6 +4,10 @@ Just a simple game of Hangman.
 
 Still in development
 
+## How to Play
+
+First, select how long of a word you want and press "Start." Once the game has started, press any letter to select it. When the game is over, select word length again, and press "Start" (you can also press Enter). 
+
 ## How it Works (Technical)
 First, it grabs a list of words from a open source word list.  It doesn't arrange this list in a way that I prefer, so I rearrange it by word length.  This way, I know how many words I have of each length and can generate a random number.
 
@@ -23,9 +27,17 @@ Anyway, to start a game, the player selects how long of a word they want, then c
 
 If the letter is in the solution, it updates the letter indicators to show position(s) in the solution.  If not, it adds a level of sorrow for the hanging man: head first, then neck, left arm, right arm, torso, left leg, right leg, left foot, right foot.  Either way, it adds the letter to the list of selected letters.  This will also be visible to the player.
 
-It then checks for a win or loss condition.  If it finds either one, it will end the game, let the player know how they did, and instruct them to press any key to continue.
+It then checks for a win or loss condition.  If it finds either one, it will end the game.
 
-Eventually, I would like a scoring system: 10 for getting it without hurting the guy, and 1 if you're down to the last foot.
+If they lost, it will indicate that to them and what the solution word actually was.
+
+If they won, a window will pop up to give them their score and their top ten scores.
+
+Here's how the game calculates the score: behind the scenes, the game keeps track of the time as milliseconds since the game started. It also stores the hangman level as a number from 0 through 9.  So the complete score is:
+
+(120,000 - elapsed time in ms) × (9 - hangman level)
+
+This will produce a number as low as 1 and as high as 1,080,000.
 
 ## Acknowledgements
 
