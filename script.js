@@ -274,6 +274,7 @@ function winner() {
     restartButton.focus();
 }
 
+//the below heavily modified from https://www.w3schools.com/howto/howto_js_countdown.asp
 let x = setInterval(function() {
     if(gameState.gameEnded) return null;
     let now = new Date().getTime();
