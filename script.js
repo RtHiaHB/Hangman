@@ -280,10 +280,10 @@ let x = setInterval(function() {
     let now = new Date().getTime();
     let distance = gameState.timerDate - now;
     if(distance <= 0) {
-        timer.textContent = '00.00';
+        timer.textContent = '00:00';
         return null;
     }
     let minutes = Math.floor((distance % (1000 * 60 * 60))/(1000 * 60));
     let seconds = Math.floor((distance % (1000 * 60))/ 1000);
-    timer.textContent = `${minutes}:${seconds}`;
+    timer.textContent = `${minutes}:${seconds.toString().padStart(2,"0")}`;
 }, 1000)
