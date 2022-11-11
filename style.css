@@ -10,6 +10,20 @@ h1 {
     color: #828F60;
 }
 
+h2 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+    color: aliceblue;
+    text-align: center;
+    font-size:48pt;
+}
+
+h3 {
+    text-align:center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
 div#selectionSpace {
     display:flex;
     flex-direction: row;
@@ -24,6 +38,7 @@ div#selectionSpace {
     width:37.5%;
     background-color: slategray;
     border-top-left-radius: 10px;
+    border-top-right-radius:10px;
 }
 
 div#startSpace {
@@ -71,7 +86,7 @@ div#startSpace {
     vertical-align: middle;
 }
 
-#lettersuseddiv {
+#bottomdiv {
     font-family:Arial, Helvetica, sans-serif;
     font-size:14pt;
     border: 3px solid slategray;
@@ -80,6 +95,7 @@ div#startSpace {
     text-align: center;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
+    height:50px;
 }
 
 #instructions {
@@ -90,18 +106,17 @@ div#startSpace {
 }
 
 #condition {
-    height:30%;
+    height:25%;
+}
+
+#lettersused {
+    color: aliceblue;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
 }
 
 #gallowspicture {
     width:100%;
-}
-
-#gamescore {
-    font-family:Arial, Helvetica, sans-serif;
-    font-size: 14pt;
-    font-weight: bold;
-    text-align: center;
 }
 
 #tableDiv {
@@ -119,6 +134,7 @@ div#startSpace {
 #currentScore {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
+    font-size:24pt;
     color: aliceblue;
     padding-top:0%;
     margin-top:1%;

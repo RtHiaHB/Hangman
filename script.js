@@ -52,7 +52,6 @@ const wordLengthCombo = document.getElementById('wordLengthSelection');
 const wordLengthLabel = document.getElementById('wordLengthLabel');
 const instructionsHeader = document.getElementById('instructions');
 const conditionsHeader = document.getElementById('condition');
-const gameScore = document.getElementById('gamescore');
 const restartButton = document.getElementById('restartButton');
 const td = document.getElementById('tableDiv');
 const timer = document.getElementById('timer');
@@ -195,7 +194,6 @@ function restartGame() {
     if(instructionsHeader.innerHTML === '&nbsp;') return null;
     instructionsHeader.innerHTML = '&nbsp;';
     timer.innerHTML = '&nbsp;';
-    gameScore.innerHTML = '&nbsp;';
     wordLengthCombo.hidden = false;
     wordLengthCombo.value = gameState.solutionWord.length;
     wordLengthLabel.hidden = false;
