@@ -1,0 +1,190 @@
+$greenboard: #61906E;
+$lightOlive: #828F60;
+$boardborder: 10px solid slategray;
+
+@mixin heads() {
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+
+@mixin space() {
+    background-color: slategray;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+@mixin whiteArial() {
+    color: aliceblue;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    @include heads();
+    font-size: 72pt;
+    color: $lightOlive
+}
+
+h2 {
+    @include heads();
+    font-size: 48pt;
+    color: aliceblue;
+    font-weight: bold;
+}
+
+h3 {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+div#selectionSpace {
+    @include space();
+    display: flex;
+    flex-direction: row;
+}
+
+.spacer {
+    @include space();
+    width: 37.5%;
+}
+
+div#startSpace {
+    @include space();
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 25%;
+    width: 25%;
+}
+
+#wordLengthLabel {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16pt;
+    font-weight: bold;
+    color: aliceblue;
+}
+
+#workspace {
+    display: flex;
+    flex-direction: column;
+    width:66%;
+    background-color: $greenboard;
+    color: aliceblue;
+    border-left: $boardborder;
+}
+
+#gallows {
+    width: 34%;
+    background-color: $greenboard;
+    border-right: $boardborder;
+}
+
+#wordBlank {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 48pt;
+    letter-spacing: 0.4em;
+    text-align: center;
+    height: 40%;
+    vertical-align: middle;
+}
+
+#bottomdiv {
+    @include whiteArial();
+    font-size: 14pt;
+    border: 3px solid slategray;
+    background-color: slategray;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 50px;
+}
+
+#instructions {
+    @include whiteArial();
+    font-size: 16pt;
+}
+
+#condition {
+    height: 25%;
+}
+
+#lettersused {
+    @include whiteArial();
+}
+
+#gallowspicture {
+    width: 100%;
+}
+
+#tableDiv {
+    display: none;
+    position: absolute;
+    top: 5%;
+    left: 25%;
+    width: 50%;
+    height: 90%;
+    z-index: 99;
+    background-color: $greenboard;
+    border: 5px solid tan;
+}
+
+#currentScore {
+    @include whiteArial();
+    font-size: 24pt;
+    padding-top: 0%;
+    margin-top: 1%;
+}
+
+#scoresTableHeader {
+    @include whiteArial();
+    padding-bottom: 0px;
+}
+
+#scoresTable {
+    width: 100%;
+    height: 65%;
+    border-spacing: 0px;
+}
+
+.scoreTableRow {
+    @include whiteArial();
+    height: 5%;
+    padding: 0%;
+    margin: 0%;
+    border: 1px solid aliceblue;
+}
+
+#winner {
+    color: aliceblue;
+    margin: 0%;
+    padding: 0%;
+}
+
+.scoreTableCell {
+    border: 1px solid aliceblue;
+}
+
+#centeredButton {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    align-items: center;
+    width: 100%;
+}
+
+.rank {
+    width: 10%;
+}
+
+.data {
+    width: 45%;
+}
+
+#timer {
+    @include whiteArial();
+    font-size: 36pt;
+    vertical-align: middle;
+    font-weight: bold;
+    height: 100%;
+}
