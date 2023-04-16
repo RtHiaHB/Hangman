@@ -1,0 +1,25 @@
+h1 {
+    @include heads();
+    font-size: 72pt;
+    color: $lightOlive
+}
+
+h2 {
+    @include heads();
+    font-size: 48pt;
+    color: aliceblue;
+    font-weight: bold;
+}
+
+h3 {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+#wordLengthLabel {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16pt;
+    font-weight: bold;
+    color: aliceblue;
+}

@@ -1,0 +1,53 @@
+#board {
+    display: flex;
+    flex-direction: row;
+    height: 80%;
+}
+
+#wordBlank {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 48pt;
+    letter-spacing: 0.4em;
+    text-align: center;
+    height: 40%;
+    vertical-align: middle;
+}
+
+#bottomdiv {
+    @include whiteArial();
+    font-size: 14pt;
+    border: 3px solid slategray;
+    background-color: slategray;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    height: 50px;
+}
+
+#instructions {
+    @include whiteArial();
+    font-size: 16pt;
+}
+
+#condition {
+    height: 25%;
+}
+
+#lettersused {
+    @include whiteArial();
+}
+
+#winner {
+    color: aliceblue;
+    margin: 0%;
+    padding: 0%;
+}
+
+
+
+#timer {
+    @include whiteArial();
+    font-size: 36pt;
+    vertical-align: middle;
+    font-weight: bold;
+    height: 100%;
+}

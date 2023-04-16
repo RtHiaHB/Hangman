@@ -1,0 +1,29 @@
+div#selectionSpace {
+    @include space();
+    display: flex;
+    flex-direction: row;
+}
+
+.spacer {
+    @include space();
+    width: 37.5%;
+}
+
+div#startSpace {
+    @include space();
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 25%;
+    width: 25%;
+}
+
+#workspace {
+    display: flex;
+    flex-direction: column;
+    width:66%;
+    background-color: $greenboard;
+    color: aliceblue;
+    border-left: $boardborder;
+}

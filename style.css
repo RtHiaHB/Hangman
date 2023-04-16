@@ -1,200 +1,204 @@
-body {
-    height: 100%;
-    width: 99%;;
-}
-
 h1 {
-    text-align: center;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 72pt;
-    color: #828F60;
+  text-align: center;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 72pt;
+  color: #828F60;
 }
 
 h2 {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-weight: bold;
-    color: aliceblue;
-    text-align: center;
-    font-size:48pt;
+  text-align: center;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-size: 48pt;
+  color: aliceblue;
+  font-weight: bold;
 }
 
 h3 {
-    text-align:center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
-}
-
-div#selectionSpace {
-    display:flex;
-    flex-direction: row;
-    /* margin-right:15px; */
-    /* border-radius:5px; */
-    background-color: slategray;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-}
-
-.spacer {
-    width:37.5%;
-    background-color: slategray;
-    border-top-left-radius: 10px;
-    border-top-right-radius:10px;
-}
-
-div#startSpace {
-    display:flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    background-color: slategray;
-    height:25%;
-    width:25%;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 }
 
 #wordLengthLabel {
-    font-family:Arial, Helvetica, sans-serif;
-    font-size: 16pt;
-    font-weight:bold;
-    color:aliceblue;
-}
-#board {
-    display:flex;
-    flex-direction: row;
-    height:80%;
-}
-#workspace {
-    display:flex;
-    flex-direction: column;
-    width:66%;
-    background-color: #61906E;
-    color:aliceblue;
-    border-left: 10px solid slategray;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16pt;
+  font-weight: bold;
+  color: aliceblue;
 }
 
-#gallows{
-    width:34%;
-    background-color: #61906E;
-    border-right: 10px solid slategray;
+body {
+  height: 100%;
+  width: 99%;
+}
+
+div#selectionSpace {
+  background-color: slategray;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.spacer {
+  background-color: slategray;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  width: 37.5%;
+}
+
+div#startSpace {
+  background-color: slategray;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  height: 25%;
+  width: 25%;
+}
+
+#workspace {
+  display: flex;
+  flex-direction: column;
+  width: 66%;
+  background-color: #61906E;
+  color: aliceblue;
+  border-left: 10px solid slategray;
+}
+
+#board {
+  display: flex;
+  flex-direction: row;
+  height: 80%;
 }
 
 #wordBlank {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 48pt;
-    letter-spacing: 0.4em;
-    text-align: center;
-    height:40%;
-    vertical-align: middle;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 48pt;
+  letter-spacing: 0.4em;
+  text-align: center;
+  height: 40%;
+  vertical-align: middle;
 }
 
 #bottomdiv {
-    font-family:Arial, Helvetica, sans-serif;
-    font-size:14pt;
-    border: 3px solid slategray;
-    background-color: slategray;
-    color:aliceblue;
-    text-align: center;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    height:50px;
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 14pt;
+  border: 3px solid slategray;
+  background-color: slategray;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  height: 50px;
 }
 
 #instructions {
-    color:aliceblue;
-    font-family:Arial, Helvetica, sans-serif;
-    text-align: center;
-    font-size: 16pt;
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 16pt;
 }
 
 #condition {
-    height:25%;
+  height: 25%;
 }
 
 #lettersused {
-    color: aliceblue;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-}
-
-#gallowspicture {
-    width:100%;
-}
-
-#tableDiv {
-    display: none;
-    position: absolute;
-    top: 5%;
-    left: 25%;
-    width: 50%;
-    height: 90%;
-    z-index: 99;
-    background-color:#61906E;
-    border:5px solid tan;
-}
-
-#currentScore {
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size:24pt;
-    color: aliceblue;
-    padding-top:0%;
-    margin-top:1%;
-}
-
-#scoresTableHeader {
-    text-align: center;
-    padding-bottom: 0px;
-    font-family: Arial, Helvetica, sans-serif;
-    color:aliceblue;
-}
-
-#scoresTable {
-    width: 100%;
-    height: 65%;
-    border-spacing: 0px;
-}
-
-.scoreTableRow {
-    height:5%;
-    text-align: center;
-    padding:0%;
-    margin: 0%;
-    font-family: Arial, Helvetica, sans-serif;
-    color:aliceblue;
-    border:1px solid aliceblue;
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
 }
 
 #winner {
-    color:aliceblue;
-    margin: 0%; 
-    padding: 0%;
-}
-
-.scoreTableCell {
-    border:1px solid aliceblue;
-}
-
-#centeredButton {
-    display:flex;
-    justify-content: center;
-    padding-top:10px;
-    align-items: center;
-    width:100%;
-}
-
-.rank {
-    width: 10%;
-}
-
-.data {
-    width: 45%;
+  color: aliceblue;
+  margin: 0%;
+  padding: 0%;
 }
 
 #timer {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size:36pt;
-    text-align: center;
-    vertical-align: middle;
-    font-weight:bold;
-    color:aliceblue;
-    height:100%;
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 36pt;
+  vertical-align: middle;
+  font-weight: bold;
+  height: 100%;
 }
+
+#gallows {
+  width: 34%;
+  background-color: #61906E;
+  border-right: 10px solid slategray;
+}
+
+#gallowspicture {
+  width: 100%;
+}
+
+#tableDiv {
+  display: none;
+  position: absolute;
+  top: 5%;
+  left: 25%;
+  width: 50%;
+  height: 90%;
+  z-index: 99;
+  background-color: #61906E;
+  border: 5px solid tan;
+}
+
+#currentScore {
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  font-size: 24pt;
+  padding-top: 0%;
+  margin-top: 1%;
+}
+
+#scoresTableHeader {
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  padding-bottom: 0px;
+}
+
+#scoresTable {
+  width: 100%;
+  height: 65%;
+  border-spacing: 0px;
+}
+
+.scoreTableRow {
+  color: aliceblue;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  height: 5%;
+  padding: 0%;
+  margin: 0%;
+  border: 1px solid aliceblue;
+}
+
+.scoreTableCell {
+  border: 1px solid aliceblue;
+}
+
+#centeredButton {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.rank {
+  width: 10%;
+}
+
+.data {
+  width: 45%;
+}
+
+/*# sourceMappingURL=style.css.map */
